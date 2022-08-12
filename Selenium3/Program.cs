@@ -1,0 +1,49 @@
+﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Interactions;
+using OpenQA.Selenium.Support.UI;
+
+namespace Selenium3
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Hello, World!");
+
+            IWebDriver driver = new ChromeDriver();
+            driver.Navigate().GoToUrl("http://192.168.0.24:5500/index.html");
+
+
+            IWebElement dateBox = driver.FindElement(By.XPath("//*[@id=\"start\"]"));
+            Thread.Sleep(2000);
+            DateTime y = DateTime.Today;
+            dateBox.SendKeys(y.ToString());
+            //dateBox.SendKeys(Keys.Tab);
+
+            // dropdwon
+            string car = "audi";
+            IWebElement valuebox = driver.FindElement(By.XPath("//*[@id=\"cars\"]"));
+            SelectElement dropDown = new SelectElement(valuebox);
+            dropDown.SelectByValue(car);
+
+            // write in textbox
+            IWebElement input = driver.FindElement(By.XPath("//*[@id=\"TextBox\"]"));
+            input.SendKeys("Hallo");
+
+            // click link
+            IWebElement link = driver.FindElement(By.XPath("/html/body/a"));
+            new Actions(driver)
+                .Click(link)
+                .Perform();
+
+            IWebElement linkexport = driver.FindElement(By.XPath("/html/body/a[2]"));
+            new Actions(driver)
+                .Click(linkexport)
+                .Perform();
+
+            
+            Console.ReadLine();
+        }
+    }
+}
