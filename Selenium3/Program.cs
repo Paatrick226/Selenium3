@@ -9,9 +9,14 @@ namespace Selenium3
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            // change download directory
+            string downloadDir = @"C:\";
+            var chromeOptions = new ChromeOptions();
+            chromeOptions.AddUserProfilePreference("download.default_directory", downloadDir);
+            chromeOptions.AddUserProfilePreference("intl.accept_languages", "de");
+            chromeOptions.AddUserProfilePreference("disable-popup-blocking", "true");
 
-            IWebDriver driver = new ChromeDriver();
+            IWebDriver driver = new ChromeDriver(chromeOptions);
             driver.Navigate().GoToUrl("http://192.168.0.24:5500/index.html");
 
 
